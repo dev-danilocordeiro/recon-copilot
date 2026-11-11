@@ -1,0 +1,34 @@
+{
+  "case_id": "G014",
+  "group": "cause",
+  "scenario": "duplicate_ledger_entry",
+  "exception": {
+    "exception_id": "EXC-0001",
+    "type": "duplicate",
+    "detected_on": "2026-10-15",
+    "ledger_entry_ids": [
+      "L-59446",
+      "L-40642"
+    ],
+    "bank_record_ids": [
+      "B-29027"
+    ],
+    "note": ""
+  },
+  "expected": {
+    "cause": "duplicate_ledger_entry",
+    "accepted_causes": [
+      "duplicate_ledger_entry"
+    ],
+    "accepted_actions": [
+      "reverse_duplicate"
+    ],
+    "ledger_entry_ids": [
+      "L-40642"
+    ],
+    "bank_record_ids": [],
+    "amount_cents": null,
+    "unsafe_actions": [],
+    "notes": "Reverse the later-created entry; keep the first."
+  }
+}

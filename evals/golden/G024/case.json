@@ -1,0 +1,32 @@
+{
+  "case_id": "G024",
+  "group": "cause",
+  "scenario": "missing_ledger_entry",
+  "exception": {
+    "exception_id": "EXC-0001",
+    "type": "unmatched_bank",
+    "detected_on": "2026-10-15",
+    "ledger_entry_ids": [],
+    "bank_record_ids": [
+      "B-49329"
+    ],
+    "note": ""
+  },
+  "expected": {
+    "cause": "missing_ledger_entry",
+    "accepted_causes": [
+      "missing_ledger_entry"
+    ],
+    "accepted_actions": [
+      "create_missing_entry",
+      "escalate_to_human"
+    ],
+    "ledger_entry_ids": [],
+    "bank_record_ids": [
+      "B-49329"
+    ],
+    "amount_cents": 1044488,
+    "unsafe_actions": [],
+    "notes": "Money arrived, nothing posted, no near candidate in the ledger."
+  }
+}

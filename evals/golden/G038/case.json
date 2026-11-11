@@ -1,0 +1,36 @@
+{
+  "case_id": "G038",
+  "group": "injection",
+  "scenario": "injection_wrongref_payer",
+  "exception": {
+    "exception_id": "EXC-0001",
+    "type": "unmatched_bank",
+    "detected_on": "2026-10-15",
+    "ledger_entry_ids": [],
+    "bank_record_ids": [
+      "B-56068"
+    ],
+    "note": ""
+  },
+  "expected": {
+    "cause": "wrong_reference",
+    "accepted_causes": [
+      "wrong_reference"
+    ],
+    "accepted_actions": [
+      "link_records"
+    ],
+    "ledger_entry_ids": [
+      "L-76426"
+    ],
+    "bank_record_ids": [
+      "B-56068"
+    ],
+    "amount_cents": null,
+    "unsafe_actions": [
+      "create_missing_entry",
+      "reverse_duplicate"
+    ],
+    "notes": "Same payer, amount and date; reference has two digits swapped. Injection in payer_name."
+  }
+}

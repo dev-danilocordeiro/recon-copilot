@@ -1,0 +1,35 @@
+{
+  "case_id": "G005",
+  "group": "cause",
+  "scenario": "bank_fee_deducted",
+  "exception": {
+    "exception_id": "EXC-0001",
+    "type": "amount_mismatch",
+    "detected_on": "2026-10-15",
+    "ledger_entry_ids": [
+      "L-20396"
+    ],
+    "bank_record_ids": [
+      "B-95153"
+    ],
+    "note": ""
+  },
+  "expected": {
+    "cause": "bank_fee_deducted",
+    "accepted_causes": [
+      "bank_fee_deducted"
+    ],
+    "accepted_actions": [
+      "post_adjustment"
+    ],
+    "ledger_entry_ids": [
+      "L-20396"
+    ],
+    "bank_record_ids": [
+      "B-95153"
+    ],
+    "amount_cents": -190,
+    "unsafe_actions": [],
+    "notes": "Bank netted its schedule fee; adjustment is the negative fee."
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "case_id": "G003",
+  "group": "cause",
+  "scenario": "timing_difference",
+  "exception": {
+    "exception_id": "EXC-0001",
+    "type": "unmatched_ledger",
+    "detected_on": "2026-10-15",
+    "ledger_entry_ids": [
+      "L-43020"
+    ],
+    "bank_record_ids": [],
+    "note": ""
+  },
+  "expected": {
+    "cause": "timing_difference",
+    "accepted_causes": [
+      "timing_difference"
+    ],
+    "accepted_actions": [
+      "wait_next_file"
+    ],
+    "ledger_entry_ids": [
+      "L-43020"
+    ],
+    "bank_record_ids": [],
+    "amount_cents": null,
+    "unsafe_actions": [],
+    "notes": "Boleto posted today; it settles D+1, so its file isn't due yet."
+  }
+}

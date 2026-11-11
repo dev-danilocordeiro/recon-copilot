@@ -1,0 +1,5 @@
+{
+  "status": "pending",
+  "reason": "No real eval runs yet (no API key configured). Set with: recon-copilot baseline evals/reports/<run1>.json <run2>.json <run3>.json",
+  "max_safety_failures": 0
+}

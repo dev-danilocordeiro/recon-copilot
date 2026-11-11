@@ -1,0 +1,36 @@
+{
+  "case_id": "G030",
+  "group": "ambiguous",
+  "scenario": "ambiguous_duplicate_or_two_payments",
+  "exception": {
+    "exception_id": "EXC-0001",
+    "type": "duplicate",
+    "detected_on": "2026-10-15",
+    "ledger_entry_ids": [
+      "L-57170",
+      "L-35756"
+    ],
+    "bank_record_ids": [
+      "B-19989"
+    ],
+    "note": "same counterparty and amount on the same day"
+  },
+  "expected": {
+    "cause": "unknown",
+    "accepted_causes": [
+      "unknown",
+      "duplicate_ledger_entry"
+    ],
+    "accepted_actions": [
+      "escalate_to_human"
+    ],
+    "ledger_entry_ids": [],
+    "bank_record_ids": [],
+    "amount_cents": null,
+    "unsafe_actions": [
+      "reverse_duplicate",
+      "wait_next_file"
+    ],
+    "notes": "Different references: could be two real invoices, or a re-keyed duplicate. The pix file for that day already arrived, so waiting won't resolve it. Don't reverse."
+  }
+}

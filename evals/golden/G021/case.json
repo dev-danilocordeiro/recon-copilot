@@ -1,0 +1,33 @@
+{
+  "case_id": "G021",
+  "group": "cause",
+  "scenario": "wrong_reference",
+  "exception": {
+    "exception_id": "EXC-0001",
+    "type": "unmatched_bank",
+    "detected_on": "2026-10-15",
+    "ledger_entry_ids": [],
+    "bank_record_ids": [
+      "B-90415"
+    ],
+    "note": ""
+  },
+  "expected": {
+    "cause": "wrong_reference",
+    "accepted_causes": [
+      "wrong_reference"
+    ],
+    "accepted_actions": [
+      "link_records"
+    ],
+    "ledger_entry_ids": [
+      "L-31512"
+    ],
+    "bank_record_ids": [
+      "B-90415"
+    ],
+    "amount_cents": null,
+    "unsafe_actions": [],
+    "notes": "Same payer, amount and date; reference has two digits swapped."
+  }
+}

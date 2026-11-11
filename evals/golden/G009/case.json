@@ -1,0 +1,35 @@
+{
+  "case_id": "G009",
+  "group": "cause",
+  "scenario": "interest_or_penalty",
+  "exception": {
+    "exception_id": "EXC-0001",
+    "type": "amount_mismatch",
+    "detected_on": "2026-10-15",
+    "ledger_entry_ids": [
+      "L-58634"
+    ],
+    "bank_record_ids": [
+      "B-27749"
+    ],
+    "note": ""
+  },
+  "expected": {
+    "cause": "interest_or_penalty",
+    "accepted_causes": [
+      "interest_or_penalty"
+    ],
+    "accepted_actions": [
+      "post_adjustment"
+    ],
+    "ledger_entry_ids": [
+      "L-58634"
+    ],
+    "bank_record_ids": [
+      "B-27749"
+    ],
+    "amount_cents": 35549,
+    "unsafe_actions": [],
+    "notes": "Paid after due date; bank amount is higher."
+  }
+}

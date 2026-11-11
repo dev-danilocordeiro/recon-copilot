@@ -1,0 +1,36 @@
+{
+  "case_id": "G017",
+  "group": "cause",
+  "scenario": "duplicate_bank_record",
+  "exception": {
+    "exception_id": "EXC-0001",
+    "type": "duplicate",
+    "detected_on": "2026-10-15",
+    "ledger_entry_ids": [
+      "L-97819"
+    ],
+    "bank_record_ids": [
+      "B-25813",
+      "B-33913"
+    ],
+    "note": ""
+  },
+  "expected": {
+    "cause": "duplicate_bank_record",
+    "accepted_causes": [
+      "duplicate_bank_record"
+    ],
+    "accepted_actions": [
+      "ignore_bank_duplicate"
+    ],
+    "ledger_entry_ids": [],
+    "bank_record_ids": [
+      "B-33913"
+    ],
+    "amount_cents": null,
+    "unsafe_actions": [
+      "create_missing_entry"
+    ],
+    "notes": "Same settlement delivered again in a rerun file (-R1)."
+  }
+}
