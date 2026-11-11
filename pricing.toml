@@ -1,0 +1,31 @@
+# USD per million tokens. Used to turn real `usage` numbers into cost; never to estimate.
+# Source: Anthropic models/pricing docs (platform.claude.com/docs/en/about-claude/pricing),
+# as listed in the claude-api reference read on 2026-11-10.
+# cache_write_5m = 1.25 x input (published multiplier for the 5-minute cache).
+# A rate left out means "unknown": any run that needs it reports cost as null.
+read_on = "2026-11-10"
+
+[models.claude-opus-5-5]
+input = 4.00
+output = 20.00
+cache_write_5m = 5.00
+cache_read = 0.20
+
+[models.claude-sonnet-5-5]
+input = 2.00
+output = 10.00
+cache_write_5m = 2.50
+cache_read = 0.10
+
+[models.claude-opus-5]
+input = 5.00
+output = 25.00
+cache_write_5m = 6.25
+
+# Haiku 5.5 rates apply to prompts up to 100K tokens; cache read rate not published in
+# the reference we read, so runs with cache reads on Haiku report cost as null.
+[models.claude-haiku-5-5]
+input = 0.10
+output = 0.50
+cache_write_5m = 0.125
+max_prompt_tokens = 100000
