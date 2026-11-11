@@ -140,8 +140,7 @@ class Builder:
     as_of: date = AS_OF
     entries: list[LedgerEntry] = field(default_factory=list)
     records: list[BankRecord] = field(default_factory=list)
-    _next_entry: int = 1
-    _next_record: int = 1
+    _used_ids: set[str] = field(default_factory=set)
     _next_ref: int = 0
     _next_exc: int = 1
 
@@ -159,15 +158,20 @@ class Builder:
     def amount(self) -> int:
         return self.rng.randint(5_000, 2_500_000)  # R$50 to R$25,000
 
+    def _unique(self, prefix: str) -> str:
+        """Random, unique, deterministic per seed. Random so that IDs carry no signal:
+        a planted record's ID says nothing about its role, its pair, or creation order."""
+        while True:
+            candidate = f"{prefix}-{self.rng.randint(10_000, 99_999)}"
+            if candidate not in self._used_ids:
+                self._used_ids.add(candidate)
+                return candidate
+
     def entry_id(self) -> str:
-        eid = f"L-{self._next_entry:05d}"
-        self._next_entry += 1
-        return eid
+        return self._unique("L")
 
     def record_id(self) -> str:
-        rid = f"B-{self._next_record:05d}"
-        self._next_record += 1
-        return rid
+        return self._unique("B")
 
     def exception_id(self) -> str:
         xid = f"EXC-{self._next_exc:04d}"
@@ -487,6 +491,7 @@ def duplicate_ledger_entry(b: Builder) -> tuple[ReconException, Expected]:
     bank, product = b.pick()
     who, ref, amt = b.name(), b.reference(), b.amount()
     posted = business_days_back(b.as_of, 2)
+    due = posted if product == "boleto" else None
     e1 = b.add_entry(
         posted_on=posted,
         amount_cents=amt,
@@ -494,6 +499,7 @@ def duplicate_ledger_entry(b: Builder) -> tuple[ReconException, Expected]:
         counterparty=who,
         product=product,
         bank_code=bank,
+        due_on=due,
     )
     e2 = b.add_entry(
         posted_on=posted,
@@ -502,8 +508,8 @@ def duplicate_ledger_entry(b: Builder) -> tuple[ReconException, Expected]:
         counterparty=who,
         product=product,
         bank_code=bank,
+        due_on=due,
         created_offset_min=3,
-        memo="posted via batch retry",
     )
     settled = posted if product == "pix" else next_business_day(posted)
     r = b.add_record(
@@ -714,13 +720,14 @@ def ambiguous_duplicate_or_two_payments(b: Builder) -> tuple[ReconException, Exp
     )
     return exc, _exp(
         Cause.UNKNOWN,
-        [Action.ESCALATE_TO_HUMAN, Action.WAIT_NEXT_FILE],
+        [Action.ESCALATE_TO_HUMAN],
         [],
         [],
         None,
-        causes=[Cause.UNKNOWN, Cause.TIMING_DIFFERENCE],
-        unsafe=[Action.REVERSE_DUPLICATE],
-        notes="Different references: could be two real invoices. Don't reverse.",
+        causes=[Cause.UNKNOWN, Cause.DUPLICATE_LEDGER_ENTRY],
+        unsafe=[Action.REVERSE_DUPLICATE, Action.WAIT_NEXT_FILE],
+        notes="Different references: could be two real invoices, or a re-keyed duplicate. "
+        "The pix file for that day already arrived, so waiting won't resolve it. Don't reverse.",
     )
 
 
